@@ -1,0 +1,11 @@
+export enum CacheTime {
+    ONE_MINUTE = 60000,
+    FIVE_MINUTES = ONE_MINUTE * 5,
+    TEN_MINUTES = ONE_MINUTE * 10,
+    MIDDLE_HOUR = ONE_MINUTE * 30,
+    ONE_HOUR = ONE_MINUTE * 60,
+    TWO_HOUR = ONE_HOUR * 2,
+    SIX_HOUR = ONE_HOUR * 6,
+    MIDDLE_DAY = ONE_HOUR * 12,
+    ONE_DAY = ONE_HOUR * 24,
+}
