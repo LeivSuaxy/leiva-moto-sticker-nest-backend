@@ -7,6 +7,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { PublicModule } from './modules/public/public.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthGuard } from './modules/auth/guards/auth.guard';
     }),
     PublicModule,
     AuthModule,
+    ProductsModule
   ],
   controllers: [AppController],
   providers: [

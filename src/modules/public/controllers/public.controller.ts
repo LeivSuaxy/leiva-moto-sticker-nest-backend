@@ -18,12 +18,11 @@ export class PublicController {
     @CacheTTL(CacheTime.SIX_HOUR)
     async getStickers() {
         const { data, error } = await this.supabase
-            .from('stickers')
-            .select('*');
+            .from("product_view")
+            .select("*")
+            .eq("type", "sticker");
 
-        if (error) {
-            throw new Error(`Failed to fetch stickers: ${error.message}`);
-        }
+        if (error) console.error(error);
 
         return data;
     }
@@ -40,5 +39,39 @@ export class PublicController {
         }
 
         return data;
+    }
+
+    // Stickers view
+    @Get('view/stickers')
+    async getStickersView() {
+        const stickerPromise = this.supabase
+            .from('products')
+            .select('*')
+            .eq('type', 'sticker')
+            .range(0, 16);
+
+        const tagPromise = this.supabase
+            .from('tags')
+            .select('*')
+            .range(0, 5);
+
+        const [stickerResult, tagResult] = await Promise.all([stickerPromise, tagPromise]);
+
+        const { data: stickerData, error: stickerError } = stickerResult;
+
+        if (stickerError) {
+            throw new Error(`Failed to fetch stickers view: ${stickerError.message}`);
+        }
+
+        const { data: tagData, error: tagError } = tagResult;
+
+        if (tagError) {
+            throw new Error(`Failed to fetch tags view: ${tagError.message}`);
+        }
+
+        return {
+            stickers: stickerData,
+            tags: tagData
+        };
     }
 }
