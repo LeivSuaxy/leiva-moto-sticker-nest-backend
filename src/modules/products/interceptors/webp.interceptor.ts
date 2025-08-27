@@ -43,7 +43,6 @@ export class WebpInterceptor implements NestInterceptor {
 
     private async processImage(buffer: Buffer): Promise<string> {
         const webpBuffer = await sharp(buffer)
-            .resize({ width: 512, height: 512, withoutEnlargement: true })
             .webp({ quality: 80 })
             .toBuffer();
 
